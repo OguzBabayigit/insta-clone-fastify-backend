@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prestart": "npm run build",
+    "prestart": "npm install --legacy-peer-deps && npm run build",
     "start": "node build/server.js",
     "dev": "tsx watch src/server.ts",
     "poststart": "rimraf build",
