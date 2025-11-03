@@ -53,6 +53,11 @@ async function databasePluginHelper(fastify: FastifyInstance) {
 
   
   db.exec(`
+    INSERT OR IGNORE INTO posts (img_url, caption) VALUES 
+    ('https://picsum.photos/400/400', 'First demo post from production!'),
+    ('https://picsum.photos/401/401', 'Another awesome post'),
+    ('https://picsum.photos/402/402', 'Beautiful sunset 🌅');
+    
     INSERT OR IGNORE INTO tagged_posts (img_url, caption, tagged_by) 
     SELECT 'https://picsum.photos/400/400', 'You were tagged in this post!', 'friend_user'
     WHERE NOT EXISTS (SELECT 1 FROM tagged_posts);
