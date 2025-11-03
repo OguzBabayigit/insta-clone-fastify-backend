@@ -14,15 +14,18 @@ const createTransactionHelpers = (db: Database) => {
       "INSERT INTO reels (video_url, thumbnail_url, caption, views) VALUES (@video_url, @thumbnail_url, @caption, @views) RETURNING *",
     ),
     getAllTagged: db.prepare("SELECT * FROM tagged_posts"),
-    // YENİ: Highlights statements
     getAllHighlights: db.prepare("SELECT * FROM highlights"),
     getHighlightById: db.prepare("SELECT * FROM highlights WHERE id = ?"),
   };
 
   const posts = {
-    getById: (id: number) => statements.getPostById.get(id),
-    getAll: () => statements.getAllPosts.all(),
-    create: (data: CreatePostDto) => statements.createPost.get(data),
+  getById: (id: number) => statements.getPostById.get(id),
+  getAll: () => statements.getAllPosts.all(),
+  create: (data: CreatePostDto) => statements.createPost.get(data),
+  delete: (id: number) => {
+    const stmt = db.prepare("DELETE FROM posts WHERE id = ?");
+    return stmt.run(id);
+    }
   };
 
   const reels = {

@@ -46,7 +46,7 @@ fastify.get("/", function (request, reply) {
   reply.send({ hello: "world" });
 });
 
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 fastify.listen({ port, host: '0.0.0.0' }, function (err, address) {
   if (err) {
