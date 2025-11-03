@@ -14,10 +14,10 @@ declare module "fastify" {
 }
 
 async function databasePluginHelper(fastify: FastifyInstance) {
-  const db = new Database("./database.db");
+  const db = new Database(":memory:");
   fastify.log.info("SQLite database connection established.");
 
-  // Tabloları oluştur (eğer yoksa)
+  
   db.exec(`
     CREATE TABLE IF NOT EXISTS posts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -51,7 +51,7 @@ async function databasePluginHelper(fastify: FastifyInstance) {
     );
   `);
 
-  // Sample data ekle (eğer tablo boşsa)
+  
   db.exec(`
     INSERT OR IGNORE INTO tagged_posts (img_url, caption, tagged_by) 
     SELECT 'https://picsum.photos/400/400', 'You were tagged in this post!', 'friend_user'
